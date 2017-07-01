@@ -13,7 +13,7 @@
     <button type="button" class="btn btn-primary btn-lg" id="modal-trigger">Add product</button>
 
     <!-- Modal Start -->
-    <div class="modal" id="product-modal">
+    <div class="modal visible" id="product-modal">
         <form action="" method="post" class="modal-content" id="product-form">
             <!-- Modal header -->
             <div class="modal-header">
@@ -37,7 +37,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group form-group-lg">
                         <label class="form-label" for="title">Title</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Title of announcement">
                     </div>
@@ -71,11 +71,11 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group form-group-md">
                         <label class="form-label" for="mileage">Mileage</label>
                         <input type="text" class="form-control" id="mileage" name="mileage" placeholder="Mileage">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group-md">
                         <label class="form-label" for="color">Color</label>
                         <div class="form-select">
                             <span class="form-indicator" id="color-indicator">&nbsp;</span>
@@ -88,7 +88,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group-md">
                         <label class="form-label" for="year">Manufacturing Year</label>
                         <input type="text" class="form-control" id="year" name="year" placeholder="Year">
                     </div>
@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group form-group-lg">
                         <label class="form-label" for="description">Description</label>
                         <textarea class="form-control form-textarea" rows="3" id="description" name="description" placeholder="Description"></textarea>
                     </div>
@@ -120,7 +120,7 @@
 
                 <div class="hidden" id="details-container">
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group form-group-lg">
                             <label class="form-label" for="details">Details</label>
                             <textarea class="form-control form-textarea" rows="3" id="details" name="details" placeholder="Details"></textarea>
                         </div>

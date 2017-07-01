@@ -84,17 +84,30 @@ p {
 
 /* Forms */
 .form-row {
-    display: flex;
-    justify-content: space-between;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
     margin: 0 -10px;
 }
+.form-row:after {
+    content: " ";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
 .form-group {
-    flex: 1;
+    /*flex: 1;*/
+    width: 50%;
+    float: left;
     padding: 0 10px;
     margin-bottom: 15px;
 }
 .form-group-lg {
-    flex: 1.5;
+    width: 100%;
+    /*flex: 1.5;*/
+}
+.form-group-md {
+    width: 33.33%;
 }
 .form-label {
     display: inline-block;
@@ -146,6 +159,9 @@ p {
     background-size: 12px;
     background-repeat: no-repeat;
     padding-right: 20px;
+}
+.form-select select::-ms-expand {
+    display: none;
 }
 .form-textarea {
     padding: 15px;
