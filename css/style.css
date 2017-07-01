@@ -84,30 +84,13 @@ p {
 
 /* Forms */
 .form-row {
-    /*display: flex;*/
-    /*justify-content: space-between;*/
+    display: flex;
     margin: 0 -10px;
 }
-.form-row:after {
-    content: " ";
-    visibility: hidden;
-    display: block;
-    height: 0;
-    clear: both;
-}
 .form-group {
-    /*flex: 1;*/
-    width: 50%;
-    float: left;
+    flex: 1;
     padding: 0 10px;
     margin-bottom: 15px;
-}
-.form-group-lg {
-    width: 100%;
-    /*flex: 1.5;*/
-}
-.form-group-md {
-    width: 33.33%;
 }
 .form-label {
     display: inline-block;
@@ -299,4 +282,10 @@ p {
 /* Utilities */
 .text-primary {
     color: #6772e5;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .form-row {
+        display: block;
+    }
 }
