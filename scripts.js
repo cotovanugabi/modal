@@ -10,21 +10,37 @@
         classSuccess = 'has-success',
         classError = 'has-error',
         modal = {
+            /**
+             * Init
+             */
             init: function () {
                 this.cacheDom();
                 this.bindEvents();
             },
+
+            /**
+             * Cache dom
+             */
             cacheDom: function () {
                 this.modal = document.getElementById('product-modal');
                 this.modalTrigger = document.getElementById('modal-trigger');
                 this.modalClose = document.getElementById('modal-close');
                 this.modalOverlay = document.getElementById('modal-overlay');
             },
+
+            /**
+             * Bind events
+             */
             bindEvents: function () {
                 this.modalTrigger.onclick = this.toggleModal.bind(this, true);
                 this.modalClose.onclick = this.toggleModal.bind(this, false);
                 this.modalOverlay.onclick = this.toggleModal.bind(this, false);
             },
+
+            /**
+             * Toggle modal
+             * @param visible - boolean
+             */
             toggleModal: function (visible) {
                 if (visible) {
                     this.modal.classList.add('visible');
@@ -33,11 +49,18 @@
                 }
             }
         },
-        form = {
+        formValidation = {
+            /**
+             * Init
+             */
             init: function () {
                 this.cacheDom();
                 this.bindEvents();
             },
+
+            /**
+             * Cache dom
+             */
             cacheDom: function () {
                 this.fields = {
                     title: document.getElementById('title'),
@@ -51,9 +74,15 @@
                     description: document.getElementById('description'),
                     damaged: document.getElementById('damaged'),
                 };
-                this.details = document.getElementById('details-container');
+                this.brandIndicator = document.getElementById('brand-indicator');
+                this.colorIndicator = document.getElementById('color-indicator');
+                this.detailsContainer = document.getElementById('details-container');
                 this.submitBtn = document.getElementById('submitBtn');
             },
+
+            /**
+             * Bind events
+             */
             bindEvents: function () {
                 var i;
                 this.submitBtn.onclick = this.runRules.bind(this);
@@ -61,7 +90,6 @@
                     if (this.fields.hasOwnProperty(i)) {
                         input = this.fields[i];
                         inputContainer = input.parentElement;
-
                         input.onfocus = this.runRules.bind(this);
                         if (input.name === 'brand') {
                             input.onchange = this.onBrandChange.bind(this);
@@ -79,6 +107,12 @@
                     }
                 }
             },
+
+            /**
+             * Run rules
+             * @param event
+             * @returns {boolean}
+             */
             runRules: function (event) {
                 var target = event.target,
                     type = event.type;
@@ -92,9 +126,18 @@
                 this.resetClassList();
                 this.checkFields();
             },
+
+            /**
+             * Prevent default
+             * @param event
+             */
             preventDefault: function (event) {
                 event.preventDefault();
             },
+
+            /**
+             * Check fields
+             */
             checkFields: function () {
                 var i,
                     validCount = 0,
@@ -118,26 +161,39 @@
                     this.submitForm();
                 }
             },
+
+            /**
+             * On brand change handler
+             * @param event
+             */
             onBrandChange: function (event) {
-                var indicator = document.getElementById('brand-indicator');
                 inputContainer = event.target.parentElement;
                 if (event.target.value) {
                     inputContainer.classList.add('has-indicator');
-                    indicator.style.backgroundImage = 'url(images/logo/' + event.target.value + '.png)';
+                    this.brandIndicator.style.backgroundImage = 'url(images/logo/' + event.target.value + '.png)';
                 } else {
                     inputContainer.classList.remove('has-indicator');
                 }
             },
+
+            /**
+             * On color change handler
+             * @param event
+             */
             onColorChange: function (event) {
-                var indicator = document.getElementById('color-indicator');
                 inputContainer = event.target.parentElement;
                 if (event.target.value) {
                     inputContainer.classList.add('has-indicator');
-                    indicator.style.backgroundColor = event.target.value;
+                    this.colorIndicator.style.backgroundColor = event.target.value;
                 } else {
                     inputContainer.classList.remove('has-indicator');
                 }
             },
+
+            /**
+             * On number change handler
+             * @param input
+             */
             onNumberChange: function (input) {
                 var regex = /[0-9]|\./;
                 if (input.value.length) {
@@ -154,20 +210,57 @@
                     this.removeError(input);
                 }
             },
+
+            /**
+             * On checkbox change handler
+             * @param event
+             */
             onCheckboxChange: function (event) {
                 if (event.target.checked) {
-                    this.details.style.display = 'block';
+                    this.detailsContainer.style.display = 'block';
                     this.fields.details = document.getElementById('details');
                     this.bindEvents();
                 } else {
-                    this.details.style.display = 'none';
+                    this.detailsContainer.style.display = 'none';
                     delete this.fields.details;
                 }
             },
+
+            /**
+             * Add class
+             * @param input
+             * @param clss
+             */
             addClass: function (input, clss) {
                 inputContainer = input.parentElement;
                 inputContainer.classList.add(clss);
             },
+
+            /**
+             * Reset class
+             * @param input
+             */
+            resetClassList: function (input) {
+                var i;
+                // If targeting specific input
+                if (input) {
+                    inputContainer = input.parentElement;
+                    inputContainer.classList.remove(classError, classSuccess);
+                    input.focus();
+                } else {
+                    for (i in this.fields) {
+                        if (this.fields.hasOwnProperty(i)) {
+                            // Remove classes from all fields
+                            this.fields[i].parentElement.classList.remove(classError, classSuccess);
+                        }
+                    }
+                }
+            },
+
+            /**
+             * Select error messages
+             * @param input
+             */
             errorMessage: function (input) {
                 var message;
                 if (input === this.fields.title) {
@@ -185,6 +278,12 @@
                 }
                 this.renderError(input, message);
             },
+
+            /**
+             * Render error
+             * @param input
+             * @param message
+             */
             renderError: function (input, message) {
                 var html;
                 inputContainer = input.parentElement;
@@ -196,6 +295,11 @@
                     inputContainer.appendChild(html);
                 }
             },
+
+            /**
+             * Remove error
+             * @param input
+             */
             removeError: function (input) {
               inputContainer = input.parentElement;
               var error = inputContainer.getElementsByClassName('form-message')[0];
@@ -203,22 +307,11 @@
                   inputContainer.removeChild(error);
               }
             },
-            resetClassList: function (input) {
-                var i;
-                // If targeting specific input
-                if (input) {
-                    inputContainer = input.parentElement;
-                    inputContainer.classList.remove(classError, classSuccess);
-                    input.focus();
-                } else {
-                    for (i in this.fields) {
-                        if (this.fields.hasOwnProperty(i)) {
-                            // Remove classes from all fields
-                            this.fields[i].parentElement.classList.remove(classError, classSuccess);
-                        }
-                    }
-                }
-            },
+
+            /**
+             * Reset errors
+             * @param input
+             */
             resetErrors: function (input) {
                 inputContainer = input.parentElement;
                 // If container contains error
@@ -226,12 +319,16 @@
                     this.resetClassList(input);
                 }
             },
+
+            /**
+             * Submit handler
+             */
             submitForm: function () {
                 alert('Form is valid!');
             }
         };
 
     modal.init();
-    form.init();
+    formValidation.init();
 
 })();
